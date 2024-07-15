@@ -1,0 +1,8 @@
+{
+  "routes": [
+    "/auth",
+    "/cart",
+    "/footer",
+    "/home"
+  ]
+}
