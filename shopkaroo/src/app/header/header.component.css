@@ -1,0 +1,10 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+.fixed-toolbar {
+  position: fixed; /* Fixed position */
+  top: 0; /* Stick to the top of the viewport */
+  width: 100%; /* Full width */
+  z-index: 1000; /* Ensure it's above other content */
+  
+}

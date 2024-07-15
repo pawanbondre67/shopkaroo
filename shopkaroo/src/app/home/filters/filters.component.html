@@ -1,0 +1,21 @@
+
+<mat-card class="mb-2 max-w-fit">
+  <div>
+    <button mat-button [matMenuTriggerFor]="sortbymenu">
+      Sort by {{sort}} <mat-icon>arrow_drop_down</mat-icon>
+
+    </button>
+
+
+    <mat-menu #sortbymenu="matMenu">
+        <button (click)="OnSortUpdated('high to low')" mat-menu-item >
+            high to low
+        </button>
+        <button (click)="OnSortUpdated('low to high')" mat-menu-item >
+            low to high
+        </button>
+    </mat-menu>
+
+  </div>
+</mat-card>
+

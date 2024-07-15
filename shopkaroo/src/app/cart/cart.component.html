@@ -1,0 +1,82 @@
+
+        <div *ngIf="cart.items.length" class="pointer-events-auto w-screen max-w-md">
+          <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+            <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+              <div class="flex items-start justify-between">
+                <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Shopping cart</h2>
+
+              </div>
+
+              <div class="mt-6 "  *ngFor="let item of cart.items"  >
+                <div class="flow-root">
+                  <ul role="list" class="-my-6 divide-y divide-gray-200">
+                    <li class="flex py-6">
+                      <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                        <img src={{item.product}} alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." class="h-full w-full object-cover object-center">
+                      </div>
+
+                      <div class="ml-4 flex flex-1 flex-col">
+                        <div>
+                          <div class="flex justify-between text-base font-medium text-gray-900">
+                            <h3>
+                              <a href="#">{{item.name}}</a>
+                            </h3>
+                            <p class="ml-4">{{(item.price*item.quantity) | currency}}</p>
+                          </div>
+
+                        </div>
+                        <div class="flex flex-1 items-end justify-between text-sm">
+                          <div class="flex items-center justify-center ">
+                            <button mat-icon-button (click)="onRemoveQuantity(item)">
+                              <mat-icon>remove</mat-icon>
+                            </button>
+                          <p class="text-gray-500  flex-grow text-center">Qty {{item.quantity}}</p>
+                          <button class="h-1" mat-icon-button (click)="onAddQuantity(item)">
+                            <mat-icon>add</mat-icon>
+                          </button>
+                          </div>
+                          <div class="flex">
+                            <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500" (click)="onRemoveFromCart(item)">Remove</button>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+
+                    <!-- More products... -->
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+              <div class="flex justify-between text-base font-medium text-gray-900">
+                <p>Subtotal</p>
+                <p>{{getTotal(cart.items)| currency}}</p>
+              </div>
+              <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+              <div class="mt-6">
+                <a href="#" class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</a>
+              </div>
+              <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
+                <p>
+                  or
+                  <button  type="button" class="font-medium text-indigo-600 hover:text-indigo-500">
+                    Continue Shopping
+                    <span aria-hidden="true"> &rarr;</span>
+                  </button>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div *ngIf="!cart.items.length" class=" max-h-fit mx-5 py-2 px-10 my-3  bg-slate-100 items-center gap-5 flex flex-col  ">
+          <p class="flex flex-col gap-5 font-bold text-xl pt-3 ">
+            Your cart is empty.
+            <button mat-raised-button routerLink="/home">Start Shopping</button>
+          </p>
+
+          <div class="loader"></div>
+
+        </div>

@@ -1,0 +1,12 @@
+<app-filters></app-filters>
+
+ <div class="w-full grid grid-cols-2 md:grid-cols-5">
+    <div *ngFor="let product of products">
+      <app-product-box
+
+       [product]="product"
+      (addToCart)="onAddToCart($event)"
+
+      ></app-product-box>
+    </div>
+    </div>
