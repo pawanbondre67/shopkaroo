@@ -1,12 +1,15 @@
-<app-filters></app-filters>
+<div class="pt-20 px-2">
+  <app-filters
+  (sortchange)="onSortChange($event)"
+  ></app-filters>
 
- <div class="w-full grid grid-cols-2 md:grid-cols-5">
-    <div *ngFor="let product of products">
-      <app-product-box
+  <div class=" w-full grid grid-cols-1 md:grid-cols-5">
+     <div *ngFor="let product of products">
+       <app-product-box
 
-       [product]="product"
-      (addToCart)="onAddToCart($event)"
+        [product]="product"
+       (addToCart)="onAddToCart($event)"
 
-      ></app-product-box>
-    </div>
-    </div>
+       ></app-product-box>
+     </div>
+     </div></div>

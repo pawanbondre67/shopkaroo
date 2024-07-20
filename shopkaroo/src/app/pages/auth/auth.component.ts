@@ -42,7 +42,9 @@ export class AuthComponent {
       e.preventDefault();
       this.authService.signIn(this.form.value).subscribe({
         next: () => {
+          console.log('logged in');
           this.router.navigate(['/cart']);
+
         },
         error: (error:HttpErrorResponse) => {
           console.error(error);

@@ -7,7 +7,11 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class FiltersComponent {
   @Output() sortchange = new EventEmitter<string>();
-  sort:string = 'price';
+
+  @Output() categorychange = new EventEmitter<string>();
+
+  sort = 'desc';
+  category = 'all categories';
 
   constructor() { }
 
@@ -17,11 +21,17 @@ export class FiltersComponent {
 
   }
 
-OnSortUpdated(newsort: string): void {
-  if (newsort) {
-    this.sort = newsort;
-    this.sortchange.emit(this.sort);  
+OnSortUpdated(newSort: string): void {
+ this.sort = newSort;
+ this.sortchange.emit(newSort);
+}
+
+OnCategoryUpdated(newcategory: string): void {
+  if (newcategory) {
+    this.category = newcategory;
+    this.categorychange.emit(this.category);
   }
+
 }
 
 }

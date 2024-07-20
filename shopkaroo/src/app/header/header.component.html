@@ -1,7 +1,5 @@
-<mat-toolbar class="fixed-toolbar ">
-  <button (click)="drawer.toggle()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
+<mat-toolbar  class=" fixed-toolbar ">
+
   <span>Dukaan</span>
   <span class="example-spacer"></span>
   <button routerLink="" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
@@ -54,37 +52,5 @@
   </mat-menu>
 </mat-toolbar>
 
-<mat-drawer-container class="mt-14"  autosize>
-  <mat-drawer #drawer  opened="false" mode="side">
 
-    <mat-nav-list>
-     <mat-list-item>
-       <a mat-line routerLink="footer" (click)="drawer.toggle()" routerLinkActive="active">Products</a>
-      </mat-list-item>
-      <mat-list-item>
-        <a mat-line routerLink="home" (click)="drawer.toggle()" routerLinkActive="active">Orders</a>
-      </mat-list-item>
-
-      <mat-list-item>
-        <a mat-line routerLink="" (click)="drawer.toggle()" routerLinkActive="active">Customers</a>
-      </mat-list-item>
-    </mat-nav-list>
-
-  </mat-drawer>
-
-  <mat-drawer-content >
-    <div class="p-1  min-h-screen bg-white">
-
-
-
-
-
-
-
-    <router-outlet></router-outlet>
-    </div>
-  </mat-drawer-content>
-
-
-</mat-drawer-container>
 

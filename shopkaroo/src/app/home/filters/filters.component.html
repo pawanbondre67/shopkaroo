@@ -1,3 +1,4 @@
+<div class="flex justify-between">
 
 <mat-card class="mb-2 max-w-fit">
   <div>
@@ -8,14 +9,46 @@
 
 
     <mat-menu #sortbymenu="matMenu">
-        <button (click)="OnSortUpdated('high to low')" mat-menu-item >
-            high to low
+        <button (click)="OnSortUpdated('desc')" mat-menu-item >
+           high to low
         </button>
-        <button (click)="OnSortUpdated('low to high')" mat-menu-item >
-            low to high
+        <button (click)="OnSortUpdated('asc')" mat-menu-item >
+           low to high
         </button>
     </mat-menu>
 
   </div>
 </mat-card>
 
+
+<mat-card class="mb-2 max-w-fit">
+  <div>
+    <button mat-button [matMenuTriggerFor]="sortbycategory">
+      All Category <mat-icon>arrow_drop_down</mat-icon>
+
+    </button>
+
+
+    <mat-menu #sortbycategory="matMenu">
+        <button (click)="OnCategoryUpdated('')" mat-menu-item >
+           All Category
+        </button>
+        <button (click)="OnCategoryUpdated('asc')" mat-menu-item >
+          electronics
+        </button>
+        <button (click)="OnCategoryUpdated('asc')" mat-menu-item >
+          jewelery
+        </button>
+        <button (click)="OnCategoryUpdated('asc')" mat-menu-item >
+          men's clothing
+        </button>
+        <button (click)="OnCategoryUpdated('asc')" mat-menu-item >
+          women's clothing
+        </button>
+    </mat-menu>
+
+  </div>
+</mat-card>
+
+
+</div>

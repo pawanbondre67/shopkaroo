@@ -3,6 +3,7 @@ import { Product } from '../models/product.model';
 import { CartService } from './../services/cart.service';
 import { Component, OnInit , OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { on } from 'node:events';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit , OnDestroy{
   }
 
   products : Array<Product> | undefined;
-  sort : string = 'low to high';
+  sort = 'desc';
   productSubscription : Subscription | undefined;
 
 
@@ -50,9 +51,16 @@ onAddToCart(product: Product): void {
     id : product.id
   });
 
+  }
 
+  onSortChange(newSort :string): void {
+
+    this.sort = newSort;
+    console.log(this.sort);
+    this.getProducts();
+  }
 
 }
 
 
-}
+
