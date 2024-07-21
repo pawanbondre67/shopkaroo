@@ -21,30 +21,36 @@
 </mat-card>
 
 
+
+<!-- <mat-expansion-panel *ngIf="categories">
+  <mat-expansion-panel-header>
+    <mat-panel-title> CATEGORIES </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-selection-list [multiple]="false">
+    <mat-list-option *ngFor="let category of categories" [value]="category">
+      <button (click)="onShowCategory(category)">{{ category }}</button>
+    </mat-list-option>
+  </mat-selection-list>
+</mat-expansion-panel> -->
+
+
+
 <mat-card class="mb-2 max-w-fit">
   <div>
     <button mat-button [matMenuTriggerFor]="sortbycategory">
-      All Category <mat-icon>arrow_drop_down</mat-icon>
+      {{categor}} <mat-icon>arrow_drop_down</mat-icon>
 
     </button>
 
 
-    <mat-menu #sortbycategory="matMenu">
-        <button (click)="OnCategoryUpdated('')" mat-menu-item >
-           All Category
-        </button>
-        <button (click)="OnCategoryUpdated('asc')" mat-menu-item >
-          electronics
-        </button>
-        <button (click)="OnCategoryUpdated('asc')" mat-menu-item >
-          jewelery
-        </button>
-        <button (click)="OnCategoryUpdated('asc')" mat-menu-item >
-          men's clothing
-        </button>
-        <button (click)="OnCategoryUpdated('asc')" mat-menu-item >
-          women's clothing
-        </button>
+    <mat-menu #sortbycategory="matMenu" >
+        <div class="flex flex-col p-1  hover:bg-slate-200" >
+        <button (click)="AllProducts()"  >All</button>
+        </div>
+       <div class="flex flex-col p-1  hover:bg-slate-200" *ngFor="let category of categories" >
+        <button  (click)="onShowCategory(category)">{{ category }}</button>
+        </div>
+
     </mat-menu>
 
   </div>
@@ -52,3 +58,5 @@
 
 
 </div>
+
+
