@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-app.post("/api/checkout", async (req, res) => {
+app.post("/checkout", async (req, res) => {
     console.log(req.body);
     try {
       const session = await stripe.checkout.sessions.create({
