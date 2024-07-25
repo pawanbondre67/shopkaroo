@@ -39,8 +39,8 @@ app.post("/api/checkout", async (req, res) => {
           quantity: item.quantity
         })),
         mode: 'payment',
-        success_url: 'http://localhost:3000/success.html',
-        cancel_url: 'http://localhost:3000/cancel.html',
+        success_url: 'https://shopkaroo-backend.onrender.com/success.html',
+        cancel_url: 'https://shopkaroo-backend.onrender.com/cancel.html',
       });
   
       res.json({ id: session.id });

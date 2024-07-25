@@ -1,7 +1,11 @@
+import { on } from 'node:events';
 
+import { HttpClient } from '@angular/common/http';
 import { CartService } from '../services/cart.service';
 import { Cart, CartItem } from './../models/cart.model';
 import { Component,OnInit } from '@angular/core';
+import { loadStripe } from '@stripe/stripe-js';
+import { stripe_publishable_key } from '../environment/environment';
 
 @Component({
   selector: 'app-cart',
@@ -10,7 +14,7 @@ import { Component,OnInit } from '@angular/core';
 })
 export class CartComponent implements OnInit{
 
-  constructor(private cartService : CartService) { }
+  constructor(private cartService : CartService, private http : HttpClient) { }
 
   ngOnInit(): void {
     this.cartService.cart.subscribe((_cart) => {
@@ -20,29 +24,7 @@ export class CartComponent implements OnInit{
 
   }
 
-  cart : Cart = {items:[
-    {
-    product: 'https://via.placeholder.com/150',
-    name:'sneakers',
-    price: 150,
-    quantity: 1,
-    id:11
-  },
-  {
-    product: 'https://via.placeholder.com/150',
-    name:'shoes',
-    price: 150,
-    quantity: 2,
-    id:12
-  },
-  {
-    product: 'https://via.placeholder.com/150',
-    name:'joogers',
-    price: 150,
-    quantity: 1,
-    id:13
-  }
-  ]};
+  cart : Cart = {items:[ ]};
 
    getTotal(items : Array<CartItem>):number{
      return this.cartService.getTotal(items);
@@ -63,5 +45,11 @@ onRemoveQuantity(item: CartItem): void {
   this.cartService.removeQuantity(item);
 }
 
-
+onCheckout(): void {
+  this.http.post('https://shopkaroo-backend.onrender.com/checkout',
+  { items: this.cart.items})
+    .subscribe(async (res:any) => {
+    let stripe = await loadStripe(stripe_publishable_key);
+  });
+}
 }
