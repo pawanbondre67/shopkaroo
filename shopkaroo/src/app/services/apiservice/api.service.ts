@@ -9,7 +9,7 @@ export class ApiService {
 
   constructor(private httpClient: HttpClient) { }
 
-  baseUrl: string = 'http://localhost:3000';
+  baseUrl: string = 'https://shopkaroo-backend.onrender.com';
 
   post(url:string,body:any){
     return this.httpClient.post(`${this.baseUrl}${url}`,body,{
