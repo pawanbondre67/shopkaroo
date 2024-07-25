@@ -89,11 +89,11 @@ app.use(
       saveUninitialized: true, // Saves new sessions
       store: MongoStore.create({
         client: mongoose.connection.getClient(),
-        maxAge: 1000 * 60 * 60 * 24, // Time in milliseconds (1 day)
+        maxAge: 1000 * 60 * 30 , // Time in milliseconds(30 minutes)
       }), // Store the session in MongoDB, overrides the default memory store
   
       // This configuration ensures that the cookie is sent over HTTPS (if available) and is not accessible through client-side scripts
-      cookie: { secure: "auto", httpOnly: true, maxAge: 1000 * 60 * 60 * 24 }, // Max age in milliseconds (1 day)
+      cookie: { secure: "auto", httpOnly: true, maxAge: 1000 * 60  }, // Max age in milliseconds 
     })
   );
 

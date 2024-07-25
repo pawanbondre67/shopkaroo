@@ -16,11 +16,11 @@ const routes: Routes = [
     path: 'home', component:HomeComponent
   },
   {
-    path: 'auth' , component: AuthComponent,canActivate: [authGuard]
+    path: 'auth' , component: AuthComponent
   },
 
   {
-    path: 'cart',component:CartComponent,canActivate: [authGuard]
+    path: 'cart',component:CartComponent
   },
   {
     path: 'footer', component:FooterComponent,canActivate: [authGuard]
