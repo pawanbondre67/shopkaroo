@@ -73,7 +73,7 @@ const  port = 3000;
 
 app.use(cors(
     {
-        origin: "http://localhost:4200" , // Allow the frontend to connect to the server
+        origin: "https://shopkarooo.netlify.app" , // Allow the frontend to connect to the server
         credentials: true, // Allow credentials, required for sessions with authentication
         
     }
