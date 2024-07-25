@@ -9,8 +9,46 @@ import MongoStore from 'connect-mongo';
 
 import isAuthenticated from './middlewares/is_authenticated.js';
 import User from './models/user.js';
+import bodyParser from 'body-parser';
 
 const app = express();
+
+
+//stripe connection
+
+app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json()); 
+import Stripe from 'stripe';
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+app.post("/api/checkout", async (req, res) => {
+    console.log(req.body);
+    try {
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: req.body.items.map((item) => ({
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: item.name,
+              images: [item.product]
+            },
+            unit_amount: item.price * 100
+          },
+          quantity: item.quantity
+        })),
+        mode: 'payment',
+        success_url: 'http://localhost:3000/success.html',
+        cancel_url: 'http://localhost:3000/cancel.html',
+      });
+  
+      res.json({ id: session.id });
+    } catch (error) {
+      res.status(400).send({ message: "Could not create checkout session" });
+    }
+});
+
 
 
 
@@ -28,8 +66,6 @@ db.once("open", function () {
   console.log("Successfully connected to MongoDB!");
 });
 
-app.use(express.json());
-
 
 const  port = 3000;
 
@@ -37,8 +73,9 @@ const  port = 3000;
 
 app.use(cors(
     {
-        origin: 'http://localhost:4200',// Allow the frontend to connect to the server
+        origin: "http://localhost:4200" , // Allow the frontend to connect to the server
         credentials: true, // Allow credentials, required for sessions with authentication
+        
     }
 ));
 
@@ -84,6 +121,8 @@ app.post("/sign-up", async (req, res) => {
 
   // Login
 app.post("/sign-in", async (req, res) => {
+
+    
     try {
       const { username, password } = req.body;
       console.log(req.body);
