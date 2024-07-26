@@ -39,7 +39,7 @@ app.use(session({
   cookie: { secure: "auto", httpOnly: true, maxAge: 24 * 60 * 60 * 1000 },
 }));
 
-app.use('/auth', authRoutes);
+app.use('/', authRoutes);
 
 app.post("/checkout", async (req, res) => {
   try {
