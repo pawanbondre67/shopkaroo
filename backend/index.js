@@ -12,6 +12,7 @@ import User from './models/user.js';
 import bodyParser from 'body-parser';
 
 const app = express();
+app.use(express.json());
 
 
 //stripe connection
@@ -93,7 +94,7 @@ app.use(
       }), // Store the session in MongoDB, overrides the default memory store
   
       // This configuration ensures that the cookie is sent over HTTPS (if available) and is not accessible through client-side scripts
-      cookie: { secure: "auto", httpOnly: true, maxAge: 1000 * 60  }, // Max age in milliseconds 
+      cookie: { secure: "auto", httpOnly: true, maxAge: 1000 * 60 * 30 }, // Max age in milliseconds 
     })
   );
 
