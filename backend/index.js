@@ -90,11 +90,11 @@ app.use(
       saveUninitialized: true, // Saves new sessions
       store: MongoStore.create({
         client: mongoose.connection.getClient(),
-        maxAge: 1000 * 60 * 30 , // Time in milliseconds(30 minutes)
+        maxAge: 1000 * 60 * 60 * 24 , // Time in milliseconds(1 day)
       }), // Store the session in MongoDB, overrides the default memory store
   
       // This configuration ensures that the cookie is sent over HTTPS (if available) and is not accessible through client-side scripts
-      cookie: { secure: "auto", httpOnly: true, maxAge: 1000 * 60 * 30 }, // Max age in milliseconds 
+      cookie: { secure: "auto", httpOnly: true, maxAge: 1000 * 60 * 60 * 24 }, // Max age in milliseconds 
     })
   );
 
@@ -170,6 +170,14 @@ app.post("/logout", (req, res) => {
 app.get("/is-authenticated", isAuthenticated, (req, res) => {
     res.status(200).send({ message: "Authenticated" });
   });
+
+
+  // Add this debug log to see if session data is present
+app.use((req, res, next) => {
+  console.log('Session:', req.session);
+  next();
+});
+
   
   
 
@@ -178,3 +186,4 @@ app.listen(port, () => {
     console.log(`Server is running on ${port}`);
 }
 );
+
