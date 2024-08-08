@@ -11,7 +11,7 @@ import authRoutes from './routes/authRoutes.js';
 const app = express();
 const stripe = new Stripe(env.STRIPE_SECRET_KEY);
 
-app.use(express.json());
+
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -23,20 +23,24 @@ db.once("open", function () {
   console.log("Successfully connected to MongoDB!");
 });
 
+app.use(express.json());
+
 app.use(cors({
-  origin: "https://shopkarooo.netlify.app",
+  origin: "http://localhost:4200",
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
+
 }));
 
 app.use(session({
-  secret: env.SUPER_SECRET_KEY,
-  resave: false,
-  saveUninitialized: true,
+  secret: process.env.SUPER_SECRET_KEY,
+  resave: false, // avoid recreating sessions that have not changed
+  saveUninitialized: true,  // saves new sessions
   store: MongoStore.create({
-    client: mongoose.connection.getClient(),
-    ttl: 24 * 60 * 60, // 1 day
-  }),
-  cookie: { secure: "auto", httpOnly: true, maxAge: 24 * 60 * 60 * 1000 },
+    mongoUrl: process.env.MONGO_URI,
+    maxAge: 2 * 60 * 60 * 1000, // 2 hrs
+  }), // store sessions in MongoDB database , ovverides the default memory store
+    cookie: { secure: "auto", httpOnly: true, maxAge: 2 * 60 * 60 * 1000 },
 }));
 
 app.use('', authRoutes);
@@ -54,8 +58,8 @@ app.post("/checkout", async (req, res) => {
         quantity: item.quantity,
       })),
       mode: 'payment',
-      success_url: 'https://shopkaroo-backend.onrender.com/success.html',
-      cancel_url: 'https://shopkaroo-backend.onrender.com/cancel.html',
+      success_url: 'https://localhost:3000/success.html',
+      cancel_url: 'https://localhost:3000/cancel.html',
     });
 
     res.json({ id: session.id });
@@ -64,10 +68,10 @@ app.post("/checkout", async (req, res) => {
   }
 });
 
-app.use((req, res, next) => {
-  console.log('Session:', req.session);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log('Session:', req.session);
+//   next();
+// });
 
 const port = 3000;
 app.listen(port, () => {
